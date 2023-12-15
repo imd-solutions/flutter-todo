@@ -1,0 +1,45 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firstapp/features/todo/domain/entities/todo.dart';
+
+abstract class TodoRemoteDatabase {
+  // Add Todo to database
+  Future<Todo> addTodo(Todo todo);
+  // Edit Todo to database
+  Future<Todo> editTodo(Todo todo);
+  // Delete Todo to database
+  Future<Todo> deleteTodo(Todo todo);
+  // Get all Todo items to database
+  Future<List<Todo>> listTodos();
+}
+
+class TodoRemoteDatabaseImpl implements TodoRemoteDatabase {
+  @override
+  Future<Todo> addTodo(Todo todo) async {
+    await FirebaseFirestore.instance
+        .collection('todos')
+        .doc(todo.id)
+        .set((todo.toMap()));
+    return todo;
+  }
+
+  @override
+  Future<Todo> deleteTodo(Todo todo) async {
+    await FirebaseFirestore.instance.collection('todos').doc(todo.id).delete();
+    return todo;
+  }
+
+  @override
+  Future<Todo> editTodo(Todo todo) async {
+    await FirebaseFirestore.instance
+        .collection('todos')
+        .doc(todo.id)
+        .update(todo.toMap());
+    return todo;
+  }
+
+  @override
+  Future<List<Todo>> listTodos() async {
+    final todoData = await FirebaseFirestore.instance.collection('todos').get();
+    return todoData.docs.map((todo) => Todo.fromMap(todo.data())).toList();
+  }
+}
