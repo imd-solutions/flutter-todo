@@ -1,5 +1,4 @@
 buildscript {
-    buildToolsVersion '34.0.0 rc1'
     ext.kotlin_version = '1.7.20'
     repositories {
         google()

@@ -65,5 +65,10 @@ flutter {
 }
 
 dependencies {
-    classpath 'com.android.tools.build:gradle:7.1.3'
+  implementation 'com.android.support:multidex:2.0.1' //enter the latest multidex version
+}
+android {
+    defaultConfig {
+        multiDexEnabled true
+    }
 }
