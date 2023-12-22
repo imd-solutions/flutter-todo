@@ -41,9 +41,9 @@ class TodoRepositoryImpl implements TodoRepository {
   }
 
   @override
-  Future<Either<Failure, List<Todo>>> getAll() async {
+  Future<Either<Failure, Stream<List<Todo>>>> getAll() async {
     try {
-      final results = await remoteDatabase.listTodos();
+      final results = remoteDatabase.listTodos();
       return Right(results);
     } catch (e) {
       return Left(

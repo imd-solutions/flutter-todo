@@ -18,8 +18,11 @@ class TodoBinding extends Bindings {
     Get.lazyPut(() => ListTodoUseCase(Get.find()));
     Get.lazyPut(() => DeleteTodoUseCase(Get.find()));
     Get.lazyPut(() => EditTodoUseCase(Get.find()));
-    Get.lazyPut(() => TodoController(
-          addTodoUseCase: Get.find(),
-        ));
+    Get.lazyPut(
+      () => TodoController(
+        addTodoUseCase: Get.find(),
+        listTodoUseCase: Get.find(),
+      ),
+    );
   }
 }

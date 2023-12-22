@@ -7,8 +7,8 @@ abstract class TodoRepository {
   Future<Either<Failure, Todo>> add(Todo todo);
   // Edit Todo
   Future<Either<Failure, Todo>> edit(Todo todo);
-  // Delete Todo
+  // // Delete Todo
   Future<Either<Failure, Todo>> delete(Todo todo);
-  // Get all Todo items
-  Future<Either<Failure, List<Todo>>> getAll();
+  // // Get all Todo items
+  Future<Either<Failure, Stream<List<Todo>>>> getAll();
 }

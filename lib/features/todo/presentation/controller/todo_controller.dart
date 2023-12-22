@@ -1,6 +1,5 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:firstapp/features/todo/domain/entities/todo.dart';
-// import 'package:firstapp/features/todo/domain/usecases/list_todo_usercase.dart';
+import 'package:firstapp/features/todo/domain/usecases/list_todo_usercase.dart';
 import 'package:firstapp/shared/utils/random_id.dart';
 import 'package:firstapp/shared/utils/usecase.dart';
 import 'package:flutter/material.dart';
@@ -12,12 +11,13 @@ class TodoController extends GetxController {
   final formKey = GlobalKey<FormState>();
   final titleController = TextEditingController();
   final descriptionController = TextEditingController();
+
   final AddTodoUseCase addTodoUseCase;
-  // final ListTodoUseCase listTodoUseCase;
+  final ListTodoUseCase listTodoUseCase;
 
   TodoController({
     required this.addTodoUseCase,
-    // required this.listTodoUseCase,
+    required this.listTodoUseCase,
   });
 
   Future<void> addTodo() async {
@@ -35,6 +35,16 @@ class TodoController extends GetxController {
       titleController.clear();
       descriptionController.clear();
       Get.snackbar("Success", "Todo added successfully");
+    });
+  }
+
+  Stream<List<Todo>> listTodo() async* {
+    final results = await listTodoUseCase(NoParams());
+    yield* results.fold((failure) {
+      Get.snackbar("Error", failure.message);
+      return Stream.value([]);
+    }, (todo) {
+      return todo;
     });
   }
 }
