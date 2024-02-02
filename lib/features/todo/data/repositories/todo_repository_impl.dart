@@ -15,7 +15,9 @@ class TodoRepositoryImpl implements TodoRepository {
       final results = await remoteDatabase.addTodo(todo);
       return Right(results);
     } catch (e) {
-      return Left(Failure("WHOOPS! Something has gone wrong. Unable to add."));
+      return const Left(Failure(
+          message: "WHOOPS! Something has gone wrong. Unable to add.",
+          statusCode: 500));
     }
   }
 
@@ -25,8 +27,9 @@ class TodoRepositoryImpl implements TodoRepository {
       final results = await remoteDatabase.deleteTodo(todo);
       return Right(results);
     } catch (e) {
-      return Left(
-          Failure("WHOOPS! Something has gone wrong. Unable to delete."));
+      return const Left(Failure(
+          message: "WHOOPS! Something has gone wrong. Unable to delete.",
+          statusCode: 500));
     }
   }
 
@@ -36,7 +39,9 @@ class TodoRepositoryImpl implements TodoRepository {
       final results = await remoteDatabase.editTodo(todo);
       return Right(results);
     } catch (e) {
-      return Left(Failure("WHOOPS! Something has gone wrong. Unable to edit."));
+      return const Left(Failure(
+          message: "WHOOPS! Something has gone wrong. Unable to edit.",
+          statusCode: 500));
     }
   }
 
@@ -46,8 +51,9 @@ class TodoRepositoryImpl implements TodoRepository {
       final results = remoteDatabase.listTodos();
       return Right(results);
     } catch (e) {
-      return Left(
-          Failure("WHOOPS! Something has gone wrong. Unable to get todos."));
+      return const Left(Failure(
+          message: "WHOOPS! Something has gone wrong. Unable to get todos.",
+          statusCode: 500));
     }
   }
 }
