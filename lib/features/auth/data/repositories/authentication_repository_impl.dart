@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
-import 'package:firstapp/shared/errors/exceptions.dart';
-import 'package:firstapp/shared/errors/failure.dart';
+import './../../../../shared/errors/exceptions.dart';
+import './../../../../shared/errors/failure.dart';
 import './../../../../features/auth/data/datasource/authentication_remote_datasource.dart';
 import './../../../../features/auth/domain/entities/user.dart';
 import './../../../../shared/utils/typedef.dart';
