@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:firstapp/features/auth/domain/entities/user.dart';
 import 'package:firstapp/shared/errors/exceptions.dart';
 import 'package:firstapp/shared/errors/failure.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -84,6 +85,30 @@ void main() {
       verifyNoMoreInteractions(remoteDatasource);
 
     });
+  });
 
+  group('getUsers', () {
+    test('should call the [RemoteDataSource.getUsers] and return [List<Users>] when call to remote source is successful', () async {
+
+      when(() => remoteDatasource.getUsers()).thenAnswer((_) async => []);
+
+      final results = await repositoryImpl.getUsers();
+
+      expect(results, isA<Right<dynamic, List<User>>>());
+      verify(() => remoteDatasource.getUsers()).called(1);
+      verifyNoMoreInteractions(remoteDatasource);
+
+    }); 
+
+    test('should return a [ApiFailure] when theh call to the remote source is unsuccessful', () async {
+
+      when(() => remoteDatasource.getUsers()).thenThrow(tException);
+
+      final result = await repositoryImpl.getUsers();
+
+      expect(result, equals(Left(ApiFailure.fromException(tException))));
+      verify(() => remoteDatasource.getUsers()).called(1);
+      verifyNoMoreInteractions(remoteDatasource);
+    });
   });
 }
