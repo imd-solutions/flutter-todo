@@ -1,10 +1,9 @@
 import 'package:dartz/dartz.dart';
-import 'package:firstapp/features/todo/data/database/todo_remote_database.dart';
-import 'package:firstapp/features/todo/domain/entities/todo.dart';
-import 'package:firstapp/features/todo/domain/repositories/todo_repository.dart';
-import 'package:firstapp/shared/errors/failure.dart';
-
-import '../../../../shared/utils/typedef.dart';
+import './../../../../features/todo/data/database/todo_remote_database.dart';
+import './../../../../features/todo/domain/entities/todo.dart';
+import './../../../../features/todo/domain/repositories/todo_repository.dart';
+import './../../../../shared/errors/failure.dart';
+import './../../../../shared/utils/typedef.dart';
 
 class TodoRepositoryImpl implements TodoRepository {
   final TodoRemoteDatabase remoteDatabase;
@@ -15,11 +14,13 @@ class TodoRepositoryImpl implements TodoRepository {
   ResultFuture<Todo> add(Todo todo) async {
     try {
       final results = await remoteDatabase.addTodo(todo);
-      return Right(results);
+      return Right(results as Todo);
     } catch (e) {
       return const Left(ApiFailure(
           message: "WHOOPS! Something has gone wrong. Unable to add.",
-          statusCode: 500));
+          statusCode: 500
+          )
+        );
     }
   }
 
@@ -27,11 +28,13 @@ class TodoRepositoryImpl implements TodoRepository {
   ResultFuture<Todo> delete(Todo todo) async {
     try {
       final results = await remoteDatabase.deleteTodo(todo);
-      return Right(results);
+      return Right(results as Todo);
     } catch (e) {
       return const Left(ApiFailure(
           message: "WHOOPS! Something has gone wrong. Unable to delete.",
-          statusCode: 500));
+          statusCode: 500
+          )
+        );
     }
   }
 
@@ -39,11 +42,13 @@ class TodoRepositoryImpl implements TodoRepository {
   ResultFuture<Todo> edit(Todo todo) async {
     try {
       final results = await remoteDatabase.editTodo(todo);
-      return Right(results);
+      return Right(results as Todo);
     } catch (e) {
       return const Left(ApiFailure(
           message: "WHOOPS! Something has gone wrong. Unable to edit.",
-          statusCode: 500));
+          statusCode: 500
+          )
+        );
     }
   }
 
@@ -55,7 +60,9 @@ class TodoRepositoryImpl implements TodoRepository {
     } catch (e) {
       return const Left(ApiFailure(
           message: "WHOOPS! Something has gone wrong. Unable to get todos.",
-          statusCode: 500));
+          statusCode: 500
+          )
+        );
     }
   }
 }

@@ -1,11 +1,10 @@
-import 'package:firstapp/features/todo/domain/entities/todo.dart';
-import 'package:firstapp/features/todo/domain/usecases/list_todo_usercase.dart';
-import 'package:firstapp/shared/utils/random_id.dart';
-import 'package:firstapp/shared/utils/usecase.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-import 'package:firstapp/features/todo/domain/usecases/add_todo_usecase.dart';
+import './../../../../features/todo/domain/entities/todo.dart';
+import './../../../../features/todo/domain/usecases/list_todo_usercase.dart';
+import './../../../../shared/utils/random_id.dart';
+import './../../../../shared/utils/usecase.dart';
+import './../../../../features/todo/domain/usecases/add_todo_usecase.dart';
 
 class TodoController extends GetxController {
   final formKey = GlobalKey<FormState>();

@@ -4,7 +4,7 @@ import './../entities/user.dart';
 abstract class AuthenticationRepository {
   const AuthenticationRepository();
 
-  ReusultFutureVoid createUser({
+  ResultFutureVoid createUser({
     required String name,
     required String email,
     required String password,

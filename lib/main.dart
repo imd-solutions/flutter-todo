@@ -1,9 +1,9 @@
-import 'package:firstapp/features/todo/presentation/bindings/todo_binding.dart';
-import 'package:firstapp/features/todo/presentation/pages/homepage.dart';
-import 'package:firstapp/firebase_options.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:get/route_manager.dart';
+import './../features/todo/presentation/bindings/todo_binding.dart';
+import './../features/todo/presentation/pages/homepage.dart';
+import './../firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

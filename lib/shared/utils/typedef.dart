@@ -2,4 +2,6 @@ import 'package:dartz/dartz.dart';
 import '../errors/failure.dart';
 
 typedef ResultFuture<T> = Future<Either<Failure, T>>;
-typedef ReusultFutureVoid = ResultFuture<void>;
+typedef ResultFutureVoid = ResultFuture<dynamic>;
+
+typedef DataMap = Map<String, dynamic>;
