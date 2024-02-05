@@ -14,7 +14,7 @@ class TodoRepositoryImpl implements TodoRepository {
   ResultFuture<Todo> add(Todo todo) async {
     try {
       final results = await remoteDatabase.addTodo(todo);
-      return Right(results as Todo);
+      return Right(results);
     } catch (e) {
       return const Left(ApiFailure(
           message: "WHOOPS! Something has gone wrong. Unable to add.",
@@ -28,7 +28,7 @@ class TodoRepositoryImpl implements TodoRepository {
   ResultFuture<Todo> delete(Todo todo) async {
     try {
       final results = await remoteDatabase.deleteTodo(todo);
-      return Right(results as Todo);
+      return Right(results);
     } catch (e) {
       return const Left(ApiFailure(
           message: "WHOOPS! Something has gone wrong. Unable to delete.",
@@ -42,7 +42,7 @@ class TodoRepositoryImpl implements TodoRepository {
   ResultFuture<Todo> edit(Todo todo) async {
     try {
       final results = await remoteDatabase.editTodo(todo);
-      return Right(results as Todo);
+      return Right(results);
     } catch (e) {
       return const Left(ApiFailure(
           message: "WHOOPS! Something has gone wrong. Unable to edit.",
