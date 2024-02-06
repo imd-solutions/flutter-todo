@@ -5,6 +5,8 @@ abstract class Failure extends Equatable {
   final String message;
   final int statusCode;
 
+  String get errorMessage => '$statusCode Error: $message';
+
   const Failure({required this.message, required this.statusCode});
 
   @override
@@ -14,5 +16,6 @@ abstract class Failure extends Equatable {
 class ApiFailure extends Failure {
   const ApiFailure({required super.message, required super.statusCode});
 
-  ApiFailure.fromException(ApiException exception) : this(message: exception.message, statusCode: exception.statusCode);
+  ApiFailure.fromException(ApiException exception)
+      : this(message: exception.message, statusCode: exception.statusCode);
 }

@@ -22,11 +22,19 @@ class CreateUserParams extends Equatable {
   final String name;
   final String email;
   final String password;
+
   const CreateUserParams({
     required this.name,
     required this.email,
     required this.password,
   });
+
+  const CreateUserParams.empty()
+      : this(
+          name: '_empty.name',
+          email: '_empty.email',
+          password: '_empty.password',
+        );
 
   @override
   List<Object?> get props => [name, email, password];
