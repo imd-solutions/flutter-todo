@@ -12,7 +12,7 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
 
   final CreateUser _createUser;
 
-  Future<void> _createUserHandler({
+  Future<void> createUser({
     required String name,
     required String email,
     required String password,
