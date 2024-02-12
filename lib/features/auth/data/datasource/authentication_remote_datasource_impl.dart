@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:firstapp/shared/errors/exceptions.dart';
 import 'package:http/http.dart' as http;
-import '../../../../shared/utils/constant.dart';
+import '../../../../shared/utils/base_url.dart';
 import '../database/user_model.dart';
 import 'authentication_remote_datasource.dart';
 
