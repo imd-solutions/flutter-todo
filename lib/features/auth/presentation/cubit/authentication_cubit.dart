@@ -29,7 +29,9 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
       (failure) => emit(
         AuthenticationError(failure.errorMessage),
       ),
-      (_) => const (UserCreated(),),
+      (_) => emit(
+        const UserCreated(),
+      ),
     );
   }
 }
