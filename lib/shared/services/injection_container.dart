@@ -6,7 +6,7 @@ import './../../features/auth/presentation/cubit/authentication_cubit.dart';
 import './../../features/auth/domain/usecases/create_user.dart';
 import './../../features/auth/data/datasource/authentication_remote_datasource_impl.dart';
 import './../../features/auth/data/repositories/authentication_repository_impl.dart';
-import './../../features/auth/domain/repositories/authentication_repositories.dart';
+import './../../features/auth/domain/repositories/authentication_repository.dart';
 
 final locator = GetIt.instance;
 

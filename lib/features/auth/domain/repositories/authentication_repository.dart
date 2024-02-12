@@ -1,5 +1,6 @@
+import 'package:firstapp/features/auth/domain/entities/auth.dart';
+
 import './../../../../shared/utils/typedef.dart';
-import './../entities/user.dart';
 
 abstract class AuthenticationRepository {
   const AuthenticationRepository();
@@ -10,5 +11,8 @@ abstract class AuthenticationRepository {
     required String password,
   });
 
-  ResultFuture<List<User>> getUsers();
+  ResultFuture<Auth> userLogin({
+    required String email,
+    required String password,
+  });
 }

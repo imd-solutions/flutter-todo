@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-import './../../../../features/auth/domain/repositories/authentication_repositories.dart';
+import './../../../../features/auth/domain/repositories/authentication_repository.dart';
 import './../../../../shared/utils/typedef.dart';
 import './../../../../shared/utils/usecase.dart';
 

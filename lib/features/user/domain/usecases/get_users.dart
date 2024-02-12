@@ -1,10 +1,10 @@
 import '../entities/user.dart';
-import '../repositories/authentication_repositories.dart';
-import './../../../../shared/utils/typedef.dart';
-import './../../../../shared/utils/usecase.dart';
+import '../../../../shared/utils/typedef.dart';
+import '../../../../shared/utils/usecase.dart';
+import '../repositories/user_repository.dart';
 
 class GetUsers extends UseCase<List<User>, NoParams> {
-  final AuthenticationRepository _repository;
+  final UserRepository _repository;
 
   GetUsers(this._repository);
 

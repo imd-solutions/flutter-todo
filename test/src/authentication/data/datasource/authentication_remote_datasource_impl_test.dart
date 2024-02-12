@@ -111,7 +111,11 @@ void main() {
       ).called(1);
       verifyNoMoreInteractions(client);
     });
-  });
 
-  group('getUsers', () {});
+    test(
+        'should return token and user information when user has successfully logged in',
+        () async {});
+    test('should return [ApiException] if user has invalid credentials',
+        () async {});
+  });
 }

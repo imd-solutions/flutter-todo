@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import '../../../../features/auth/domain/entities/user.dart';
+import '../../domain/entities/user.dart';
 import '../../../../shared/utils/typedef.dart';
 
 class UserModel extends User {
