@@ -70,17 +70,17 @@ class AuthenticationRemoteDatasourceImpl
       headers: {'Content-Type': 'application/json'},
     );
 
-    final result = response.body;
-
-    return Right(
-      AuthModel(
-        token: result[0],
-        user: const User(
-            id: '1',
-            name: 'Dipo',
-            email: 'dipo@test.com',
-            password: 'password'),
-      ),
-    );
+    if (response.statusCode == 200) {
+      return Right(
+        AuthModel.fromJson(
+          jsonDecode(response.body),
+        ),
+      );
+    } else {
+      throw ApiException(
+        message: response.body,
+        statusCode: response.statusCode,
+      );
+    }
   }
 }

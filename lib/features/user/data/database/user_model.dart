@@ -28,6 +28,14 @@ class UserModel extends User {
     );
   }
 
+  const UserModel.empty()
+      : this(
+          id: '1',
+          name: '_empty.name',
+          email: '_empty.email',
+          password: '_empty.password',
+        );
+
   UserModel.fromMap(DataMap map)
       : this(
           id: map['id'] as String,

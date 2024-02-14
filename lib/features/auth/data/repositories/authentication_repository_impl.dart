@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 
+import '../../../user/data/database/user_model.dart';
 import './../../../../shared/errors/exceptions.dart';
 import './../../../../shared/errors/failure.dart';
 import './../../../../features/auth/data/datasource/authentication_remote_datasource.dart';
@@ -47,7 +48,7 @@ class AuthenticationRepositoryImpl implements AuthenticationRepository {
       return const Right(
         AuthModel(
           token: '1234567890',
-          user: User(
+          user: UserModel(
             id: '1',
             name: 'Dipo',
             email: 'dipo@test.com',

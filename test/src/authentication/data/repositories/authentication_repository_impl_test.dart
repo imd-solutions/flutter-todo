@@ -1,3 +1,4 @@
+import 'package:firstapp/features/user/data/database/user_model.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:dartz/dartz.dart';
@@ -24,7 +25,7 @@ void main() {
   const tException = ApiException(message: 'Unknown Error', statusCode: 500);
   const tAuthJWT = AuthModel(
     token: '1234567890',
-    user: User(
+    user: UserModel(
         id: '1',
         name: 'Dipo George',
         email: 'dipo@test.com',

@@ -7,6 +7,8 @@ import 'package:mocktail/mocktail.dart';
 import 'package:firstapp/features/auth/data/datasource/authentication_remote_datasource_impl.dart';
 import 'package:firstapp/shared/errors/exceptions.dart';
 
+import '../../../../helpers/json_reader.dart';
+
 class MockClient extends Mock implements http.Client {}
 
 class FakeUri extends Fake implements Uri {}
@@ -138,8 +140,7 @@ void main() {
           ),
         ).thenAnswer(
           (_) async => http.Response(
-              '{ token: "1234567890", user: { id: 1, name: "User", email: $email, password: $password}}',
-              200),
+              readJson('helpers/dummy_data/auth_response.json'), 200),
         );
 
         // act

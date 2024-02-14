@@ -1,0 +1,9 @@
+{
+  "token": "THISISTHEFAKETOKEN1234567890",
+  "user": {
+    "id": "1",
+    "name": "Test User",
+    "email": "user@test.com",
+    "password": "password"
+  }
+}
