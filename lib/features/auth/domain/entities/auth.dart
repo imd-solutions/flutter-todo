@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:firstapp/features/user/domain/entities/user.dart';
+import './../../../../features/user/domain/entities/user.dart';
 
 class Auth extends Equatable {
   final String token;

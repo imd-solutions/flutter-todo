@@ -32,7 +32,7 @@ void main() {
     const password = 'password';
 
     test(
-      'should complete successfully when the [statusCode] is 200 or 201',
+      'should complete successfully when statusCode is 200 or 201',
       () async {
         // arrange
         when(
@@ -120,10 +120,56 @@ void main() {
       ).called(1);
       verifyNoMoreInteractions(client);
     });
+  });
+
+  group('userLogin', () {
+    const email = 'user@test.com';
+    const password = 'password';
 
     test(
-        'should return token and user information when user has successfully logged in',
-        () async {});
+      'should return token and user information when user has successful logged in.',
+      () async {
+        // arrange
+        when(
+          () => client.post(
+            any(),
+            body: any(named: 'body'),
+            headers: any(named: 'headers'),
+          ),
+        ).thenAnswer(
+          (_) async => http.Response(
+              '{ token: "1234567890", user: { id: 1, name: "User", email: $email, password: $password}}',
+              200),
+        );
+
+        // act
+        final methodCall = remoteDatasource.userLogin;
+
+        // assert
+        expect(
+          methodCall(
+            email: email,
+            password: password,
+          ),
+          completes,
+        );
+
+        verify(
+          () => client.post(
+            Uri.parse(kUserLoginEndpoint),
+            body: jsonEncode(
+              {
+                'email': email,
+                'password': password,
+              },
+            ),
+            headers: {'Content-Type': 'application/json'},
+          ),
+        ).called(1);
+        verifyNoMoreInteractions(client);
+      },
+    );
+
     test('should return [ApiException] if user has invalid credentials',
         () async {});
   });

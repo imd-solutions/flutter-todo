@@ -84,22 +84,3 @@ class AuthenticationRemoteDatasourceImpl
     );
   }
 }
-
-/*
-*
-*
-  @override
-  Future<AuthModel> userLogin({
-    required email,
-    required password,
-  }) async {
-    final response = await _client.post(Uri.parse(kUserLoginEndpoint),
-        body: jsonEncode({
-          'email': email,
-          'password': password,
-        }),
-        headers: {'Content-Type': 'application/json'});
-  }
-*
-*
-* */
