@@ -1,9 +1,9 @@
-import 'package:firstapp/features/auth/data/database/auth_model.dart';
-import 'package:firstapp/features/user/domain/entities/user.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:dartz/dartz.dart';
 
+import 'package:firstapp/features/auth/data/database/auth_model.dart';
+import 'package:firstapp/features/user/domain/entities/user.dart';
 import 'package:firstapp/shared/errors/exceptions.dart';
 import 'package:firstapp/shared/errors/failure.dart';
 import 'package:firstapp/features/auth/data/datasource/authentication_remote_datasource.dart';
@@ -23,12 +23,13 @@ void main() {
 
   const tException = ApiException(message: 'Unknown Error', statusCode: 500);
   const tAuthJWT = AuthModel(
-      token: '1234567890',
-      user: User(
-          id: '1',
-          name: 'Dipo George',
-          email: 'dipo@test.com',
-          password: 'password'));
+    token: '1234567890',
+    user: User(
+        id: '1',
+        name: 'Dipo George',
+        email: 'dipo@test.com',
+        password: 'password'),
+  );
 
   group('createUser', () {
     const name = 'Test User';
@@ -45,7 +46,7 @@ void main() {
           email: any(named: 'email'),
           password: any(named: 'password'),
         ),
-      ).thenAnswer((_) async => Future.value);
+      ).thenAnswer((_) async => const Right(null));
 
       // act
       final result = await repositoryImpl.createUser(
@@ -112,7 +113,7 @@ void main() {
             email: any(named: 'email'),
             password: any(named: 'password'),
           ),
-        ).thenAnswer((_) async => Right(tAuthJWT));
+        ).thenAnswer((_) async => const Right(tAuthJWT));
 
         // action
         final result = await repositoryImpl.userLogin(

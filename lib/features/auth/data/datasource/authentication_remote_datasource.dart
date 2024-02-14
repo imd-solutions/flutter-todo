@@ -1,9 +1,8 @@
-import 'package:firstapp/features/auth/data/database/auth_model.dart';
-
+import './../../../../features/auth/data/database/auth_model.dart';
 import '../../../../shared/utils/typedef.dart';
 
 abstract class AuthenticationRemoteDatasource {
-  Future<void> createUser({
+  ResultFutureVoid createUser({
     required String name,
     required String email,
     required String password,

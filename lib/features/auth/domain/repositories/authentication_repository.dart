@@ -1,5 +1,4 @@
-import 'package:firstapp/features/auth/domain/entities/auth.dart';
-
+import './../../../../features/auth/domain/entities/auth.dart';
 import './../../../../shared/utils/typedef.dart';
 
 abstract class AuthenticationRepository {
@@ -15,4 +14,8 @@ abstract class AuthenticationRepository {
     required String email,
     required String password,
   });
+
+  // Future<void> userLogout();
+
+  // Future<void> forgottenPassword();
 }

@@ -1,17 +1,19 @@
 import 'dart:convert';
 
-import 'package:firstapp/features/auth/data/datasource/authentication_remote_datasource.dart';
-import 'package:firstapp/features/auth/data/datasource/authentication_remote_datasource_impl.dart';
-import 'package:firstapp/shared/errors/exceptions.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
 import 'package:mocktail/mocktail.dart';
 
+import 'package:firstapp/features/auth/data/datasource/authentication_remote_datasource_impl.dart';
+import 'package:firstapp/shared/errors/exceptions.dart';
+
 class MockClient extends Mock implements http.Client {}
+
+class FakeUri extends Fake implements Uri {}
 
 void main() {
   late http.Client client;
-  late AuthenticationRemoteDatasource remoteDatasource;
+  late AuthenticationRemoteDatasourceImpl remoteDatasource;
 
   setUp(() {
     registerFallbackValue(Uri());
@@ -37,11 +39,14 @@ void main() {
           () => client.post(
             any(),
             body: any(named: 'body'),
+            headers: any(named: 'headers'),
           ),
-        ).thenAnswer((_) async => http.Response(
-              'User created successfully',
-              201,
-            ));
+        ).thenAnswer(
+          (_) async => http.Response(
+            'User created successfully',
+            201,
+          ),
+        );
 
         // act
         final methodCall = remoteDatasource.createUser;
@@ -66,6 +71,7 @@ void main() {
                 'password': password,
               },
             ),
+            headers: {'Content-Type': 'application/json'},
           ),
         ).called(1);
         verifyNoMoreInteractions(client);
@@ -79,6 +85,7 @@ void main() {
         () => client.post(
           any(),
           body: any(named: 'body'),
+          headers: any(named: 'headers'),
         ),
       ).thenAnswer(
         (_) async => http.Response(
@@ -94,9 +101,10 @@ void main() {
       );
 
       expect(
-        () async => methodCall,
+        methodCall,
         throwsA(tException),
       );
+
       verify(
         () => client.post(
           Uri.parse(kCreateUserEndpoint),
@@ -107,6 +115,7 @@ void main() {
               'password': password,
             },
           ),
+          headers: {'Content-Type': 'application/json'},
         ),
       ).called(1);
       verifyNoMoreInteractions(client);
