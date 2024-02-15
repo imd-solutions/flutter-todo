@@ -3,7 +3,6 @@ import 'package:dartz/dartz.dart';
 import 'package:http/http.dart' as http;
 
 import './../../../../shared/utils/base_url.dart';
-import './../../../../features/user/domain/entities/user.dart';
 import './../../../../shared/errors/exceptions.dart';
 import './../../../../shared/utils/typedef.dart';
 import '../database/auth_model.dart';

@@ -1,9 +1,9 @@
 {
-  "token": "THISISTHEFAKETOKEN1234567890",
+  "token": "_empty.string_token",
   "user": {
-    "id": "1",
-    "name": "Test User",
-    "email": "user@test.com",
-    "password": "password"
+    "id": "_empty.string_id",
+    "name": "_empty.string_name",
+    "email": "_empty.string_email",
+    "password": "_empty.string_password"
   }
 }

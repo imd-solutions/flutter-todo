@@ -1,10 +1,11 @@
+import 'dart:convert';
+
 import 'package:dartz/dartz.dart';
 
 import '../../../user/data/database/user_model.dart';
 import './../../../../shared/errors/exceptions.dart';
 import './../../../../shared/errors/failure.dart';
 import './../../../../features/auth/data/datasource/authentication_remote_datasource.dart';
-import '../../../user/domain/entities/user.dart';
 import './../../../../shared/utils/typedef.dart';
 import './../../../../features/auth/domain/repositories/authentication_repository.dart';
 import '../database/auth_model.dart';

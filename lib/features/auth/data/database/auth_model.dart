@@ -1,7 +1,4 @@
-import 'dart:convert';
-
-import 'package:firstapp/features/user/data/database/user_model.dart';
-
+import './../../../../features/user/data/database/user_model.dart';
 import '../../domain/entities/auth.dart';
 
 class AuthModel extends Auth {
@@ -9,6 +6,12 @@ class AuthModel extends Auth {
     required super.token,
     required super.user,
   });
+
+  const AuthModel.empty()
+      : this(
+          token: '_empty.string_token',
+          user: const UserModel.empty(),
+        );
 
   factory AuthModel.fromJson(Map<String, dynamic> json) => AuthModel(
         token: json["token"],

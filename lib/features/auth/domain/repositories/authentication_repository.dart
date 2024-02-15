@@ -1,4 +1,4 @@
-import './../../../../features/auth/domain/entities/auth.dart';
+import '../../data/database/auth_model.dart';
 import './../../../../shared/utils/typedef.dart';
 
 abstract class AuthenticationRepository {
@@ -10,7 +10,7 @@ abstract class AuthenticationRepository {
     required String password,
   });
 
-  ResultFuture<Auth> userLogin({
+  ResultFuture<AuthModel> userLogin({
     required String email,
     required String password,
   });

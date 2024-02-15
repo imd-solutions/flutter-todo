@@ -30,10 +30,10 @@ class UserModel extends User {
 
   const UserModel.empty()
       : this(
-          id: '1',
-          name: '_empty.name',
-          email: '_empty.email',
-          password: '_empty.password',
+          id: '_empty.string_id',
+          name: '_empty.string_name',
+          email: '_empty.string_email',
+          password: '_empty.string_password',
         );
 
   UserModel.fromMap(DataMap map)
