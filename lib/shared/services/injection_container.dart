@@ -15,7 +15,7 @@ Future<void> init() async {
   locator.registerFactory(() => AuthenticationCubit(createUser: locator()));
 
   // Usecases
-  locator.registerLazySingleton(() => CreateUser(locator()));
+  locator.registerLazySingleton(() => CreateUserUseCase(locator()));
   locator.registerLazySingleton<AuthenticationRepository>(
       () => AuthenticationRepositoryImpl(locator()));
 

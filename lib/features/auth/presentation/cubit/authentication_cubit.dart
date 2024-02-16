@@ -6,11 +6,11 @@ import '../../domain/usecases/create_user.dart';
 part 'authentication_state.dart';
 
 class AuthenticationCubit extends Cubit<AuthenticationState> {
-  AuthenticationCubit({required CreateUser createUser})
+  AuthenticationCubit({required CreateUserUseCase createUser})
       : _createUser = createUser,
         super(const AuthenticationInitial());
 
-  final CreateUser _createUser;
+  final CreateUserUseCase _createUser;
 
   Future<void> createUser({
     required String name,

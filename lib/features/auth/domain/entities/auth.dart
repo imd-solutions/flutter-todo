@@ -10,6 +10,12 @@ class Auth extends Equatable {
     required this.user,
   });
 
+  const Auth.empty()
+      : this(
+          token: '_empty.string_token',
+          user: const UserModel.empty(),
+        );
+
   @override
   List<Object?> get props => [token, user];
 }

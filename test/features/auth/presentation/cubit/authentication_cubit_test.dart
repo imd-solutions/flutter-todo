@@ -7,10 +7,10 @@ import 'package:firstapp/shared/errors/failure.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
-class MockCreateUser extends Mock implements CreateUser {}
+class MockCreateUser extends Mock implements CreateUserUseCase {}
 
 void main() {
-  late CreateUser createUser;
+  late CreateUserUseCase createUser;
   late AuthenticationCubit cubit;
 
   const tCreateUserParams = CreateUserParams.empty();

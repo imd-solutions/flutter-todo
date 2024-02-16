@@ -4,10 +4,10 @@ import './../../../../features/auth/domain/repositories/authentication_repositor
 import './../../../../shared/utils/typedef.dart';
 import './../../../../shared/utils/usecase.dart';
 
-class CreateUser extends UseCase<void, CreateUserParams> {
+class CreateUserUseCase extends UseCase<void, CreateUserParams> {
   final AuthenticationRepository _repository;
 
-  CreateUser(this._repository);
+  CreateUserUseCase(this._repository);
 
   @override
   ResultFuture<void> call(CreateUserParams params) async =>
