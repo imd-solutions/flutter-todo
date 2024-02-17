@@ -1,6 +1,8 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:dartz/dartz.dart';
+import 'package:firstapp/features/auth/data/models/auth_model.dart';
 import 'package:firstapp/features/auth/domain/usecases/create_user.dart';
+import 'package:firstapp/features/auth/domain/usecases/user_login.dart';
 import 'package:firstapp/features/auth/presentation/cubit/authentication_cubit.dart';
 
 import 'package:firstapp/shared/errors/failure.dart';
@@ -9,17 +11,23 @@ import 'package:mocktail/mocktail.dart';
 
 class MockCreateUser extends Mock implements CreateUserUseCase {}
 
+class MockUserLoginUseCase extends Mock implements UserLoginUseCase {}
+
 void main() {
-  late CreateUserUseCase createUser;
+  late MockCreateUser createUser;
+  late MockUserLoginUseCase userLogin;
   late AuthenticationCubit cubit;
 
   const tCreateUserParams = CreateUserParams.empty();
-  const tApiFailure = ApiFailure(message: 'Unknow Error', statusCode: 400);
+  const tUserLoginParams = UserLoginParams.empty();
+  const tApiFailure = ApiFailure(message: 'Unknown Error', statusCode: 400);
 
   setUp(() {
     createUser = MockCreateUser();
-    cubit = AuthenticationCubit(createUser: createUser);
+    userLogin = MockUserLoginUseCase();
+    cubit = AuthenticationCubit(createUser: createUser, userLogin: userLogin);
     registerFallbackValue(tCreateUserParams);
+    registerFallbackValue(tUserLoginParams);
   });
 
   tearDown(() => cubit.close());
@@ -74,4 +82,26 @@ void main() {
           });
     },
   );
+
+  group('user login', () {
+    blocTest<AuthenticationCubit, AuthenticationState>(
+        'should log user in successfully',
+        build: () {
+          when(() => userLogin(any()))
+              .thenAnswer((_) async => const Right(AuthModel.empty()));
+          return cubit;
+        },
+        act: (cubit) => cubit.userLogin(
+              email: tCreateUserParams.email,
+              password: tCreateUserParams.password,
+            ),
+        expect: () => const <AuthenticationState>[
+              LoginUserIn(),
+              UserLoggedIn(),
+            ],
+        verify: (_) {
+          verify(() => userLogin(tUserLoginParams)).called(1);
+          verifyNoMoreInteractions(userLogin);
+        });
+  });
 }

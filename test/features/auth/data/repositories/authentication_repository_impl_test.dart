@@ -1,7 +1,5 @@
 import 'dart:convert';
 
-import 'package:firstapp/features/auth/domain/entities/auth_entity.dart';
-import 'package:firstapp/features/user/data/database/user_model.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:dartz/dartz.dart';
@@ -27,9 +25,8 @@ void main() {
   });
 
   const tException = ApiException(message: 'Unknown Error', statusCode: 500);
-  final tAuthJWT = jsonDecode(
-    readJson('helpers/dummy_data/auth_response.json'),
-  );
+  const tServerException =
+      ServerException(message: 'No internet connection', statusCode: 500);
 
   group('createUser', () {
     const name = 'Test User';
@@ -149,11 +146,52 @@ void main() {
 
       // assert
       expect(
-          result,
-          equals(Left(ApiFailure(
-            message: tException.message,
-            statusCode: tException.statusCode,
-          ))));
+        result,
+        equals(
+          Left(
+            ApiFailure(
+              message: tException.message,
+              statusCode: tException.statusCode,
+            ),
+          ),
+        ),
+      );
+      verify(
+        () => remoteDatasource.userLogin(
+          email: email,
+          password: password,
+        ),
+      ).called(1);
+      verifyNoMoreInteractions(remoteDatasource);
+    });
+
+    test('should return connect failure if no internet', () async {
+      // arrange
+      when(
+        () => remoteDatasource.userLogin(
+          email: any(named: 'email'),
+          password: any(named: 'password'),
+        ),
+      ).thenThrow(tServerException);
+
+      // act
+      final result = await repositoryImpl.userLogin(
+        email: email,
+        password: password,
+      );
+
+      // assert
+      expect(
+        result,
+        equals(
+          Left(
+            ServerFailure(
+              message: tServerException.message,
+              statusCode: tServerException.statusCode,
+            ),
+          ),
+        ),
+      );
       verify(
         () => remoteDatasource.userLogin(
           email: email,

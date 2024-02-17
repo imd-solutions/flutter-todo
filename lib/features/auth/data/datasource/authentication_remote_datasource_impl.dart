@@ -18,7 +18,7 @@ class AuthenticationRemoteDatasourceImpl
   const AuthenticationRemoteDatasourceImpl(this._client);
 
   @override
-  ResultFutureVoid createUser({
+  Future<void> createUser({
     required String name,
     required String email,
     required String password,
@@ -41,7 +41,7 @@ class AuthenticationRemoteDatasourceImpl
         );
       }
 
-      return const Right(null);
+      return;
     } on ApiException {
       throw const ApiException(
         message: 'Invalid email address',

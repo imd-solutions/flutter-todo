@@ -19,6 +19,14 @@ class UserCreated extends AuthenticationState {
   const UserCreated();
 }
 
+class LoginUserIn extends AuthenticationState {
+  const LoginUserIn();
+}
+
+class UserLoggedIn extends AuthenticationState {
+  const UserLoggedIn();
+}
+
 class AuthenticationError extends AuthenticationState {
   final String message;
 

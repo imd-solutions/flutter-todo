@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:dartz/dartz.dart';
 import 'package:firstapp/features/auth/data/models/auth_model.dart';
-import 'package:firstapp/features/user/data/database/user_model.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
 import 'package:mocktail/mocktail.dart';
@@ -162,12 +161,11 @@ void main() {
             await remoteDatasource.userLogin(email: email, password: password);
 
         expect(
-            result,
-            Right(
-              AuthModel.fromJson(
-                jsonDecode(readJson('helpers/dummy_data/auth_response.json')),
-              ),
-            ));
+          result,
+          Right(AuthModel.fromJson(
+            jsonDecode(readJson('helpers/dummy_data/auth_response.json')),
+          )),
+        );
 
         verify(
           () => client.post(

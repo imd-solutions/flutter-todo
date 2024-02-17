@@ -1,3 +1,4 @@
+import 'package:firstapp/features/auth/domain/usecases/user_login.dart';
 import 'package:get_it/get_it.dart';
 import 'package:http/http.dart' as http;
 
@@ -12,10 +13,12 @@ final locator = GetIt.instance;
 
 Future<void> init() async {
   // Application Login
-  locator.registerFactory(() => AuthenticationCubit(createUser: locator()));
+  locator.registerFactory(
+      () => AuthenticationCubit(createUser: locator(), userLogin: locator()));
 
   // Usecases
   locator.registerLazySingleton(() => CreateUserUseCase(locator()));
+  locator.registerLazySingleton(() => UserLoginUseCase(locator()));
   locator.registerLazySingleton<AuthenticationRepository>(
       () => AuthenticationRepositoryImpl(locator()));
 
