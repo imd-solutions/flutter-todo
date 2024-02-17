@@ -1,4 +1,4 @@
-import './../../../../features/auth/data/database/auth_model.dart';
+import './../../../../features/auth/data/models/auth_model.dart';
 import '../../../../shared/utils/typedef.dart';
 
 abstract class AuthenticationRemoteDatasource {

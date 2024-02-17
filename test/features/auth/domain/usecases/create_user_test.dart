@@ -23,14 +23,24 @@ void main() {
 
   test('should return correct data when a call to data source is successful',
       () async {
-    when(() => mockAuthenticationRepository.createUser(
+    // arrange
+    when(
+      () => mockAuthenticationRepository.createUser(
+          name: name, email: email, password: password),
+    ).thenAnswer(
+      (_) async => const Right(null),
+    );
+
+    // act
+    final result = await createUserUseCase.call(
+      const CreateUserParams(
         name: name,
         email: email,
-        password: password)).thenAnswer((_) async => const Right(null));
+        password: password,
+      ),
+    );
 
-    final result = await createUserUseCase.call(
-        const CreateUserParams(name: name, email: email, password: password));
-
+    // assert
     expect(result, const Right(null));
   });
 }

@@ -1,14 +1,18 @@
+import 'dart:convert';
+
+import 'package:firstapp/features/auth/domain/entities/auth_entity.dart';
 import 'package:firstapp/features/user/data/database/user_model.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:dartz/dartz.dart';
 
-import 'package:firstapp/features/auth/data/database/auth_model.dart';
-import 'package:firstapp/features/user/domain/entities/user_entity.dart';
+import 'package:firstapp/features/auth/data/models/auth_model.dart';
 import 'package:firstapp/shared/errors/exceptions.dart';
 import 'package:firstapp/shared/errors/failure.dart';
 import 'package:firstapp/features/auth/data/datasource/authentication_remote_datasource.dart';
 import 'package:firstapp/features/auth/data/repositories/authentication_repository_impl.dart';
+
+import '../../../../helpers/json_reader.dart';
 
 class MockAuthenticationRemoteDatasource extends Mock
     implements AuthenticationRemoteDatasource {}
@@ -23,13 +27,8 @@ void main() {
   });
 
   const tException = ApiException(message: 'Unknown Error', statusCode: 500);
-  const tAuthJWT = AuthModel(
-    token: '1234567890',
-    user: UserModel(
-        id: '1',
-        name: 'Dipo George',
-        email: 'dipo@test.com',
-        password: 'password'),
+  final tAuthJWT = jsonDecode(
+    readJson('helpers/dummy_data/auth_response.json'),
   );
 
   group('createUser', () {
@@ -114,7 +113,7 @@ void main() {
             email: any(named: 'email'),
             password: any(named: 'password'),
           ),
-        ).thenAnswer((_) async => const Right(tAuthJWT));
+        ).thenAnswer((_) async => const Right(AuthModel.empty()));
 
         // action
         final result = await repositoryImpl.userLogin(
@@ -123,7 +122,7 @@ void main() {
         );
 
         // assert
-        expect(result, equals(const Right(tAuthJWT)));
+        expect(result, equals(const Right(AuthModel.empty())));
         verify(
           () => remoteDatasource.userLogin(
             email: email,

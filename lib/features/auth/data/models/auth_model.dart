@@ -27,4 +27,9 @@ class AuthModel extends AuthEntity {
         "token": token,
         "user": user,
       };
+
+  AuthEntity toEntity() => AuthEntity(
+        token: token,
+        user: user,
+      );
 }

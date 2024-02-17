@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 import './../../../../shared/utils/base_url.dart';
 import './../../../../shared/errors/exceptions.dart';
 import './../../../../shared/utils/typedef.dart';
-import '../database/auth_model.dart';
+import '../models/auth_model.dart';
 import 'authentication_remote_datasource.dart';
 
 const kCreateUserEndpoint = '$kBaseUrl/auth/register';
@@ -70,11 +70,9 @@ class AuthenticationRemoteDatasourceImpl
     );
 
     if (response.statusCode == 200) {
-      return Right(
-        AuthModel.fromJson(
-          jsonDecode(response.body),
-        ),
-      );
+      return Right(AuthModel.fromJson(
+        jsonDecode(response.body),
+      ));
     } else {
       throw ApiException(
         message: response.body,

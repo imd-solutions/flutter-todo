@@ -22,6 +22,7 @@ void main() {
   const String password = 'password';
 
   test('should return the correct object when called', () async {
+    // arrange
     when(() => mockAuthenticationRepository.userLogin(
         email: email, password: password)).thenAnswer(
       (_) async => const Right(
@@ -29,6 +30,7 @@ void main() {
       ),
     );
 
+    // act
     final result = await userLoginUseCase.call(
       const UserLoginParams(
         email: email,
@@ -36,6 +38,7 @@ void main() {
       ),
     );
 
+    // assert
     expect(
       result,
       const Right(

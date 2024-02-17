@@ -1,5 +1,8 @@
 import 'dart:convert';
 
+import 'package:dartz/dartz.dart';
+import 'package:firstapp/features/auth/data/models/auth_model.dart';
+import 'package:firstapp/features/user/data/database/user_model.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
 import 'package:mocktail/mocktail.dart';
@@ -11,10 +14,8 @@ import '../../../../helpers/json_reader.dart';
 
 class MockClient extends Mock implements http.Client {}
 
-class FakeUri extends Fake implements Uri {}
-
 void main() {
-  late http.Client client;
+  late MockClient client;
   late AuthenticationRemoteDatasourceImpl remoteDatasource;
 
   setUp(() {
@@ -140,7 +141,9 @@ void main() {
           ),
         ).thenAnswer(
           (_) async => http.Response(
-              readJson('helpers/dummy_data/auth_response.json'), 200),
+            readJson('helpers/dummy_data/auth_response.json'),
+            200,
+          ),
         );
 
         // act
@@ -155,6 +158,17 @@ void main() {
           completes,
         );
 
+        final result =
+            await remoteDatasource.userLogin(email: email, password: password);
+
+        expect(
+            result,
+            Right(
+              AuthModel.fromJson(
+                jsonDecode(readJson('helpers/dummy_data/auth_response.json')),
+              ),
+            ));
+
         verify(
           () => client.post(
             Uri.parse(kUserLoginEndpoint),
@@ -166,7 +180,7 @@ void main() {
             ),
             headers: {'Content-Type': 'application/json'},
           ),
-        ).called(1);
+        ).called(2);
         verifyNoMoreInteractions(client);
       },
     );
