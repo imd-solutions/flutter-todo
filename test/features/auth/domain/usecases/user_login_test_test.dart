@@ -1,10 +1,13 @@
 import 'package:dartz/dartz.dart';
-import 'package:firstapp/features/auth/data/database/auth_model.dart';
-import 'package:firstapp/features/auth/domain/usecases/user_login.dart';
+import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:test/test.dart';
 
-import 'create_user_test.dart';
+import 'package:firstapp/features/auth/domain/repositories/authentication_repository.dart';
+import 'package:firstapp/features/auth/domain/entities/auth_entity.dart';
+import 'package:firstapp/features/auth/domain/usecases/user_login.dart';
+
+class MockAuthenticationRepository extends Mock
+    implements AuthenticationRepository {}
 
 void main() {
   late UserLoginUseCase userLoginUseCase;
@@ -22,7 +25,7 @@ void main() {
     when(() => mockAuthenticationRepository.userLogin(
         email: email, password: password)).thenAnswer(
       (_) async => const Right(
-        AuthModel.empty(),
+        AuthEntity.empty(),
       ),
     );
 
@@ -36,7 +39,7 @@ void main() {
     expect(
       result,
       const Right(
-        AuthModel.empty(),
+        AuthEntity.empty(),
       ),
     );
   });

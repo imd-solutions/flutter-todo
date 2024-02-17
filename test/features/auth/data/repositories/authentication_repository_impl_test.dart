@@ -4,7 +4,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:dartz/dartz.dart';
 
 import 'package:firstapp/features/auth/data/database/auth_model.dart';
-import 'package:firstapp/features/user/domain/entities/user.dart';
+import 'package:firstapp/features/user/domain/entities/user_entity.dart';
 import 'package:firstapp/shared/errors/exceptions.dart';
 import 'package:firstapp/shared/errors/failure.dart';
 import 'package:firstapp/features/auth/data/datasource/authentication_remote_datasource.dart';

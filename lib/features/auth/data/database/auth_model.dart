@@ -1,7 +1,7 @@
 import './../../../../features/user/data/database/user_model.dart';
-import '../../domain/entities/auth.dart';
+import '../../domain/entities/auth_entity.dart';
 
-class AuthModel extends Auth {
+class AuthModel extends AuthEntity {
   const AuthModel({
     required super.token,
     required super.user,

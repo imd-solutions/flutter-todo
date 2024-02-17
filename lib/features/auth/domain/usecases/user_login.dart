@@ -1,8 +1,10 @@
 import 'package:equatable/equatable.dart';
-import 'package:firstapp/features/auth/data/database/auth_model.dart';
-import 'package:firstapp/features/auth/domain/repositories/authentication_repository.dart';
-import 'package:firstapp/shared/utils/typedef.dart';
-import 'package:firstapp/shared/utils/usecase.dart';
+
+import './../../../../features/auth/domain/repositories/authentication_repository.dart';
+import './../../../../shared/utils/typedef.dart';
+import './../../../../shared/utils/usecase.dart';
+
+import '../entities/auth_entity.dart';
 
 class UserLoginUseCase extends UseCase<void, UserLoginParams> {
   final AuthenticationRepository _repository;
@@ -10,9 +12,9 @@ class UserLoginUseCase extends UseCase<void, UserLoginParams> {
   UserLoginUseCase(this._repository);
 
   @override
-  ResultFuture<AuthModel> call(params) {
-    // TODO: implement call
-    throw UnimplementedError();
+  ResultFuture<AuthEntity> call(params) {
+    return _repository.userLogin(
+        email: params.email, password: params.password);
   }
 }
 

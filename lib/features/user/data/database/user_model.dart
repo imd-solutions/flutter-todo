@@ -1,9 +1,9 @@
 import 'dart:convert';
 
-import '../../domain/entities/user.dart';
+import '../../domain/entities/user_entity.dart';
 import '../../../../shared/utils/typedef.dart';
 
-class UserModel extends User {
+class UserModel extends UserEntity {
   const UserModel({
     required super.id,
     required super.name,

@@ -4,7 +4,7 @@ import 'package:firstapp/features/user/data/database/user_model.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:firstapp/features/auth/data/database/auth_model.dart';
-import 'package:firstapp/features/auth/domain/entities/auth.dart';
+import 'package:firstapp/features/auth/domain/entities/auth_entity.dart';
 
 import '../../../../helpers/json_reader.dart';
 
@@ -12,7 +12,7 @@ void main() {
   const AuthModel tAuthModel = AuthModel.empty();
 
   test('the model is equal to the same as [AuthEntity]', () async {
-    expect(tAuthModel, isA<Auth>());
+    expect(tAuthModel, isA<AuthEntity>());
   });
 
   test('should return a valid model from json', () async {
