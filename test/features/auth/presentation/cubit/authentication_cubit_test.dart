@@ -20,7 +20,8 @@ void main() {
 
   const tCreateUserParams = CreateUserParams.empty();
   const tUserLoginParams = UserLoginParams.empty();
-  const tApiFailure = ApiFailure(message: 'Unknown Error', statusCode: 400);
+  const tAuthFailure =
+      AuthFailure(message: 'Invalid Credentials', statusCode: 404);
 
   setUp(() {
     createUser = MockCreateUser();
@@ -61,10 +62,10 @@ void main() {
           });
 
       blocTest<AuthenticationCubit, AuthenticationState>(
-          'should email [CreatingUser, AuthenticationError] when unsuccessful',
+          'should return error when unsuccessful',
           build: () {
             when(() => createUser(any()))
-                .thenAnswer((_) async => const Left(tApiFailure));
+                .thenAnswer((_) async => const Left(tAuthFailure));
             return cubit;
           },
           act: (cubit) => cubit.createUser(
@@ -74,7 +75,9 @@ void main() {
               ),
           expect: () => [
                 const CreatingUser(),
-                AuthenticationError(tApiFailure.errorMessage),
+                AuthenticationError(
+                    message: tAuthFailure.message,
+                    statusCode: tAuthFailure.statusCode),
               ],
           verify: (_) {
             verify(() => createUser(tCreateUserParams)).called(1);
@@ -103,5 +106,27 @@ void main() {
           verify(() => userLogin(tUserLoginParams)).called(1);
           verifyNoMoreInteractions(userLogin);
         });
+
+    blocTest('should return invalid user if use credentials are incorect.',
+        build: () {
+          when(() => userLogin(any())).thenAnswer(
+            (_) async => Left(
+              AuthFailure(
+                  message: tAuthFailure.message,
+                  statusCode: tAuthFailure.statusCode),
+            ),
+          );
+          return cubit;
+        },
+        act: (cubit) => cubit.userLogin(
+              email: tCreateUserParams.email,
+              password: tCreateUserParams.password,
+            ),
+        expect: () => <AuthenticationState>[
+              const LoginUserIn(),
+              AuthenticationError(
+                  message: tAuthFailure.message,
+                  statusCode: tAuthFailure.statusCode),
+            ]);
   });
 }

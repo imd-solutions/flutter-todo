@@ -29,8 +29,9 @@ class UserLoggedIn extends AuthenticationState {
 
 class AuthenticationError extends AuthenticationState {
   final String message;
+  final int statusCode;
 
-  const AuthenticationError(this.message);
+  const AuthenticationError({required this.message, required this.statusCode});
 
   @override
   List<String> get props => [message];

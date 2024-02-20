@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:mocktail/mocktail.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:dartz/dartz.dart';
@@ -9,8 +7,6 @@ import 'package:firstapp/shared/errors/exceptions.dart';
 import 'package:firstapp/shared/errors/failure.dart';
 import 'package:firstapp/features/auth/data/datasource/authentication_remote_datasource.dart';
 import 'package:firstapp/features/auth/data/repositories/authentication_repository_impl.dart';
-
-import '../../../../helpers/json_reader.dart';
 
 class MockAuthenticationRemoteDatasource extends Mock
     implements AuthenticationRemoteDatasource {}

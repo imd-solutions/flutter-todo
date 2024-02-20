@@ -6,7 +6,6 @@ import './../../../../shared/errors/failure.dart';
 import './../../../../features/auth/data/datasource/authentication_remote_datasource.dart';
 import './../../../../shared/utils/typedef.dart';
 import './../../../../features/auth/domain/repositories/authentication_repository.dart';
-import '../models/auth_model.dart';
 
 class AuthenticationRepositoryImpl implements AuthenticationRepository {
   final AuthenticationRemoteDatasource _remoteDataSource;

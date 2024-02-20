@@ -10,6 +10,16 @@ class ApiException extends Equatable implements Exception {
   List<Object?> get props => [message, statusCode];
 }
 
+class AuthException extends Equatable implements Exception {
+  final String message;
+  final int statusCode;
+
+  const AuthException({required this.message, required this.statusCode});
+
+  @override
+  List<Object?> get props => [message, statusCode];
+}
+
 class ServerException extends Equatable implements Exception {
   final String message;
   final int statusCode;

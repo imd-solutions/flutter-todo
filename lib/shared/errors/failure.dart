@@ -20,6 +20,13 @@ class ApiFailure extends Failure {
       : this(message: exception.message, statusCode: exception.statusCode);
 }
 
+class AuthFailure extends Failure {
+  const AuthFailure({required super.message, required super.statusCode});
+
+  AuthFailure.fromException(AuthException exception)
+      : this(message: exception.message, statusCode: exception.statusCode);
+}
+
 class ServerFailure extends Failure {
   const ServerFailure({required super.message, required super.statusCode});
 
