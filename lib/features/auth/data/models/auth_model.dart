@@ -32,4 +32,11 @@ class AuthModel extends AuthEntity {
         token: token,
         user: user,
       );
+
+  static AuthModel fromEntity(AuthEntity entity) {
+    return AuthModel(
+      token: entity.token,
+      user: entity.user,
+    );
+  }
 }

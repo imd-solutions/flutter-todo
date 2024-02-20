@@ -44,6 +44,22 @@ class UserModel extends UserEntity {
           password: map['password'] as String,
         );
 
+  UserEntity toEntity() => UserEntity(
+        id: id,
+        name: name,
+        email: email,
+        password: password,
+      );
+
+  static UserModel fromEntity(UserEntity entity) {
+    return UserModel(
+      id: entity.id,
+      name: entity.name,
+      email: entity.email,
+      password: entity.password,
+    );
+  }
+
   DataMap toMap() => {
         'id': id,
         'name': name,
