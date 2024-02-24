@@ -39,7 +39,6 @@ class RegisterScreen extends StatelessWidget {
                       child: Text(state.message),
                     );
                   }
-                  print('The state is: $state');
                   return Container();
                 }),
                 Padding(
