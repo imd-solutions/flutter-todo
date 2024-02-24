@@ -1,10 +1,11 @@
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
-import 'package:firstapp/features/auth/domain/usecases/user_login.dart';
-import 'package:firstapp/shared/utils/typedef.dart';
+import 'package:flutter/widgets.dart';
 
-import '../../data/models/auth_model.dart';
+import './../../../../features/auth/domain/usecases/user_login.dart';
+import './../../../../shared/utils/typedef.dart';
+import './../../data/models/auth_model.dart';
 import '../../domain/usecases/create_user.dart';
 
 part 'authentication_state.dart';
@@ -19,6 +20,10 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
 
   final CreateUserUseCase _createUser;
   final UserLoginUseCase _userLoging;
+  TextEditingController nameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  final formKey = GlobalKey<FormState>();
 
   Future<void> createUser({
     required String name,
@@ -34,10 +39,12 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
     ));
 
     result.fold(
-      (failure) => emit(
-        AuthenticationError(
-            message: failure.message, statusCode: failure.statusCode),
-      ),
+      (failure) {
+        emit(
+          AuthenticationError(
+              message: failure.message, statusCode: failure.statusCode),
+        );
+      },
       (_) => emit(
         const UserCreated(),
       ),

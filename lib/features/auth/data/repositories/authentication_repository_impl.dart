@@ -1,14 +1,14 @@
 import 'package:dartz/dartz.dart';
-import 'package:firstapp/features/auth/domain/entities/auth_entity.dart';
 
+import './../../../../features/auth/data/datasource/authentication_remote_datasource_impl.dart';
+import './../../../../features/auth/domain/entities/auth_entity.dart';
+import './../../../../features/auth/domain/repositories/authentication_repository.dart';
 import './../../../../shared/errors/exceptions.dart';
 import './../../../../shared/errors/failure.dart';
-import './../../../../features/auth/data/datasource/authentication_remote_datasource.dart';
 import './../../../../shared/utils/typedef.dart';
-import './../../../../features/auth/domain/repositories/authentication_repository.dart';
 
 class AuthenticationRepositoryImpl implements AuthenticationRepository {
-  final AuthenticationRemoteDatasource _remoteDataSource;
+  final AuthenticationRemoteDatasourceImpl _remoteDataSource;
   const AuthenticationRepositoryImpl(this._remoteDataSource);
 
   @override

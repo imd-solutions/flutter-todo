@@ -1,13 +1,11 @@
-import 'package:firstapp/features/auth/presentation/cubit/authentication_cubit.dart';
+import 'package:firstapp/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/route_manager.dart';
+import './../features/auth/presentation/cubit/authentication_cubit.dart';
 import './../shared/services/injection_container.dart';
-import './../features/todo/presentation/bindings/todo_binding.dart';
-import './../features/todo/presentation/pages/homepage.dart';
 import './../firebase_options.dart';
-import './../features/auth/presentation/views/home_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -31,10 +29,10 @@ class MyApp extends StatelessWidget {
         ),
         initialRoute: '/',
         home: const HomeScreen(),
-        getPages: [
-          GetPage(
-              name: '/', page: () => const HomePage(), binding: TodoBinding())
-        ],
+        // getPages: [
+        //   GetPage(
+        //       name: '/', page: () => const HomePage(), binding: TodoBinding())
+        // ],
       ),
     );
   }

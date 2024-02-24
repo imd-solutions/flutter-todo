@@ -86,8 +86,7 @@ class HomePage extends GetView<TodoController> {
                                         SizedBox(
                                           width: double.maxFinite,
                                           child: ElevatedButton(
-                                            onPressed: () =>
-                                                print('CLICK Edit'),
+                                            onPressed: () {},
                                             child: const Text('Edit Todo'),
                                           ),
                                         ),
@@ -103,7 +102,7 @@ class HomePage extends GetView<TodoController> {
                       ),
                       IconButton(
                         splashRadius: 20,
-                        onPressed: () => print('CLICK Delete'),
+                        onPressed: () => {},
                         icon: const Icon(Icons.delete),
                       ),
                     ],

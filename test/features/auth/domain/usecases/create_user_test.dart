@@ -1,19 +1,19 @@
 import 'package:dartz/dartz.dart';
+import 'package:firstapp/features/auth/data/repositories/authentication_repository_impl.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
-import 'package:firstapp/features/auth/domain/repositories/authentication_repository.dart';
 import 'package:firstapp/features/auth/domain/usecases/create_user.dart';
 
-class MockAuthenticationRepository extends Mock
-    implements AuthenticationRepository {}
+class MockAuthenticationRepositoryImpl extends Mock
+    implements AuthenticationRepositoryImpl {}
 
 void main() {
   late CreateUserUseCase createUserUseCase;
-  late MockAuthenticationRepository mockAuthenticationRepository;
+  late MockAuthenticationRepositoryImpl mockAuthenticationRepository;
 
   setUp(() {
-    mockAuthenticationRepository = MockAuthenticationRepository();
+    mockAuthenticationRepository = MockAuthenticationRepositoryImpl();
     createUserUseCase = CreateUserUseCase(mockAuthenticationRepository);
   });
 

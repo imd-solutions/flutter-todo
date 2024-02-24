@@ -1,11 +1,11 @@
 import 'package:equatable/equatable.dart';
 
-import './../../../../features/auth/domain/repositories/authentication_repository.dart';
+import './../../../../features/auth/data/repositories/authentication_repository_impl.dart';
 import './../../../../shared/utils/typedef.dart';
 import './../../../../shared/utils/usecase.dart';
 
 class CreateUserUseCase extends UseCase<void, CreateUserParams> {
-  final AuthenticationRepository _repository;
+  final AuthenticationRepositoryImpl _repository;
 
   CreateUserUseCase(this._repository);
 

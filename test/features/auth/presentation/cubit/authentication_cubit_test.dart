@@ -107,26 +107,30 @@ void main() {
           verifyNoMoreInteractions(userLogin);
         });
 
-    blocTest('should return invalid user if use credentials are incorect.',
-        build: () {
-          when(() => userLogin(any())).thenAnswer(
-            (_) async => Left(
-              AuthFailure(
-                  message: tAuthFailure.message,
-                  statusCode: tAuthFailure.statusCode),
+    blocTest<AuthenticationCubit, AuthenticationState>(
+      'should return invalid user if use credentials are incorect.',
+      build: () {
+        when(() => userLogin(any())).thenAnswer(
+          (_) async => Left(
+            AuthFailure(
+              message: tAuthFailure.message,
+              statusCode: tAuthFailure.statusCode,
             ),
-          );
-          return cubit;
-        },
-        act: (cubit) => cubit.userLogin(
-              email: tCreateUserParams.email,
-              password: tCreateUserParams.password,
-            ),
-        expect: () => <AuthenticationState>[
-              const LoginUserIn(),
-              AuthenticationError(
-                  message: tAuthFailure.message,
-                  statusCode: tAuthFailure.statusCode),
-            ]);
+          ),
+        );
+        return cubit;
+      },
+      act: (cubit) => cubit.userLogin(
+        email: tCreateUserParams.email,
+        password: tCreateUserParams.password,
+      ),
+      expect: () => <AuthenticationState>[
+        const LoginUserIn(),
+        AuthenticationError(
+          message: tAuthFailure.message,
+          statusCode: tAuthFailure.statusCode,
+        ),
+      ],
+    );
   });
 }

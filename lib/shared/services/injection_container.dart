@@ -21,9 +21,11 @@ Future<void> init() async {
   locator.registerLazySingleton(() => UserLoginUseCase(locator()));
   locator.registerLazySingleton<AuthenticationRepository>(
       () => AuthenticationRepositoryImpl(locator()));
-
+  locator.registerLazySingleton(() => AuthenticationRepositoryImpl(locator()));
   // Datasources
   locator.registerLazySingleton<AuthenticationRemoteDatasource>(
+      () => AuthenticationRemoteDatasourceImpl(locator()));
+  locator.registerLazySingleton(
       () => AuthenticationRemoteDatasourceImpl(locator()));
 
   // External Dependencies
