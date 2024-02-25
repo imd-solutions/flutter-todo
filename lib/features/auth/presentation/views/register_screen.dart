@@ -23,24 +23,32 @@ class RegisterScreen extends StatelessWidget {
             key: context.read<AuthenticationCubit>().formKey,
             child: Column(
               children: <Widget>[
-                const Logo(),
                 BlocBuilder<AuthenticationCubit, AuthenticationState>(
-                    builder: (BuildContext context, AuthenticationState state) {
-                  if (state is AuthenticationInitial) {
-                    return Container();
-                  }
-                  if (state is CreatingUser) {
-                    return const Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  }
-                  if (state is AuthenticationError) {
-                    return Center(
-                      child: Text(state.message),
-                    );
-                  }
-                  return Container();
-                }),
+                  builder: (context, state) {
+                    if (state is AuthenticationInitial) {
+                      print('The initital state is: $state');
+                      return Container();
+                    } else if (state is CreatingUser) {
+                      print('The creating user state is: $state');
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    } else if (state is UserCreated) {
+                      print('The user created state is: $state');
+                      return const Center(
+                        child: Text('DONE!'),
+                      );
+                    } else if (state is AuthenticationError) {
+                      print('The authentication state is: $state');
+                      return Center(
+                        child: Text(state.message),
+                      );
+                    } else {
+                      return Container();
+                    }
+                  },
+                ),
+                const Logo(),
                 Padding(
                   //padding: const EdgeInsets.only(left:15.0,right: 15.0,top:0,bottom: 0),
                   padding: const EdgeInsets.symmetric(horizontal: 15),

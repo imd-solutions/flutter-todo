@@ -24,7 +24,7 @@ void main() {
   });
 
   const tException = ApiException(
-    message: 'Invalid email address',
+    message: '{ msg: "Something has gone wrong!"}',
     statusCode: 400,
   );
 
@@ -91,7 +91,7 @@ void main() {
         ),
       ).thenAnswer(
         (_) async => http.Response(
-          'Invalid email address',
+          '{ msg: "Something has gone wrong!"}',
           400,
         ),
       );

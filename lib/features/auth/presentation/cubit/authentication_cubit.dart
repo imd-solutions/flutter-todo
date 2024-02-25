@@ -11,6 +11,9 @@ import '../../domain/usecases/create_user.dart';
 part 'authentication_state.dart';
 
 class AuthenticationCubit extends Cubit<AuthenticationState> {
+  final CreateUserUseCase _createUser;
+  final UserLoginUseCase _userLoging;
+
   AuthenticationCubit({
     required CreateUserUseCase createUser,
     required UserLoginUseCase userLogin,
@@ -18,14 +21,12 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
         _userLoging = userLogin,
         super(const AuthenticationInitial());
 
-  final CreateUserUseCase _createUser;
-  final UserLoginUseCase _userLoging;
   TextEditingController nameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   final formKey = GlobalKey<FormState>();
 
-  Future<void> createUser({
+  ResultFutureVoid createUser({
     required String name,
     required String email,
     required String password,
@@ -38,17 +39,25 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
       password: password,
     ));
 
+    print('final result: $result');
+
     result.fold(
       (failure) {
+        print('failure: $failure');
+
         emit(
           AuthenticationError(
-              message: failure.message, statusCode: failure.statusCode),
+            message: failure.message,
+            statusCode: failure.statusCode,
+          ),
         );
       },
       (_) => emit(
         const UserCreated(),
       ),
     );
+
+    return const Right(null);
   }
 
   ResultFuture<AuthModel> userLogin({

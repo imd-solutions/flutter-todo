@@ -8,8 +8,11 @@ import './../../../../shared/utils/typedef.dart';
 import '../models/auth_model.dart';
 import 'authentication_remote_datasource.dart';
 
-const kCreateUserEndpoint = '$kBaseUrl/auth/register';
-const kUserLoginEndpoint = '$kBaseUrl/auth/login';
+const kCreateUserEndpoint = '$kBaseUrl/users';
+const kUserLoginEndpoint = '$kBaseUrl/users'; // Incorrect for now
+
+// const kCreateUserEndpoint = '$kBaseUrl/auth/register'; // Incorrect for now
+// const kUserLoginEndpoint = '$kBaseUrl/auth/login'; // Incorrect for now
 
 class AuthenticationRemoteDatasourceImpl
     implements AuthenticationRemoteDatasource {
@@ -42,10 +45,10 @@ class AuthenticationRemoteDatasourceImpl
       }
 
       return;
-    } on ApiException {
-      throw const ApiException(
-        message: 'Invalid email address',
-        statusCode: 400,
+    } on ApiException catch (e) {
+      throw ApiException(
+        message: e.message,
+        statusCode: e.statusCode,
       );
     } catch (e) {
       throw ApiException(
