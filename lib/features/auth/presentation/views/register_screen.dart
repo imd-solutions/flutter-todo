@@ -127,9 +127,11 @@ class RegisterScreen extends StatelessWidget {
                             .validate()) {
                           // If the form is valid, display a snackbar. In the real world,
                           // you'd often call a server or save the information in a database.
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(content: Text('Processing Data')),
-                          );
+                          // if (state is CreatingUser) {
+                          //   ScaffoldMessenger.of(context).showSnackBar(
+                          //     const SnackBar(content: Text('Processing Data')),
+                          //   );
+                          // }
 
                           context.read<AuthenticationCubit>().createUser(
                               name: context
