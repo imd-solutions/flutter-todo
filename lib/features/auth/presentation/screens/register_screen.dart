@@ -1,8 +1,8 @@
-import 'package:firstapp/features/auth/presentation/widgets/user_alerts.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import './../../../../features/auth/presentation/widgets/input_text.dart';
+import './../../../../features/auth/presentation/widgets/user_alerts.dart';
 import './../../../../shared/widgets/logo.dart';
 import './../cubit/authentication_cubit.dart';
 import 'login_screen.dart';
@@ -12,7 +12,7 @@ class RegisterScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    void navigateToPage() {
+    void navigateToLoginScreen() {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
@@ -20,6 +20,15 @@ class RegisterScreen extends StatelessWidget {
         ),
       );
     }
+
+    final TextEditingController userName =
+        context.read<AuthenticationCubit>().nameController;
+
+    final TextEditingController userEmail =
+        context.read<AuthenticationCubit>().emailController;
+
+    final TextEditingController userPassword =
+        context.read<AuthenticationCubit>().passwordController;
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -36,8 +45,7 @@ class RegisterScreen extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(
                     horizontal: 15.0, vertical: 10.0),
                 child: InputText(
-                  controller:
-                      context.read<AuthenticationCubit>().nameController,
+                  controller: userName,
                   labelText: 'Name',
                   hintText: 'Please enter your full name',
                 ),
@@ -46,8 +54,7 @@ class RegisterScreen extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(
                     horizontal: 15.0, vertical: 10.0),
                 child: InputText(
-                  controller:
-                      context.read<AuthenticationCubit>().emailController,
+                  controller: userEmail,
                   email: true,
                   labelText: 'Email',
                   hintText: 'Please enter your email address',
@@ -57,8 +64,7 @@ class RegisterScreen extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(
                     horizontal: 15.0, vertical: 10.0),
                 child: InputText(
-                  controller:
-                      context.read<AuthenticationCubit>().passwordController,
+                  controller: userPassword,
                   password: true,
                   labelText: 'Password',
                   hintText: 'Please enter a password',
@@ -73,8 +79,9 @@ class RegisterScreen extends StatelessWidget {
                     height: 50,
                     width: 250,
                     decoration: BoxDecoration(
-                        color: Colors.blue,
-                        borderRadius: BorderRadius.circular(20)),
+                      color: Colors.blue,
+                      borderRadius: BorderRadius.circular(20),
+                    ),
                     child: TextButton(
                       onPressed: () {
                         if (context
@@ -82,46 +89,39 @@ class RegisterScreen extends StatelessWidget {
                             .formKey
                             .currentState!
                             .validate()) {
-                          // If the form is valid, display a snackbar. In the real world,
-                          // you'd often call a server or save the information in a database.
-                          // if (state is CreatingUser) {
-
-                          // }
-
                           context.read<AuthenticationCubit>().createUser(
-                              name: context
-                                  .read<AuthenticationCubit>()
-                                  .nameController
-                                  .text,
-                              email: context
-                                  .read<AuthenticationCubit>()
-                                  .emailController
-                                  .text,
-                              password: context
-                                  .read<AuthenticationCubit>()
-                                  .passwordController
-                                  .text);
+                                name: userName.text,
+                                email: userEmail.text,
+                                password: userPassword.text,
+                              );
                         }
 
-                        UserAlerts.show(context, 'We are family', 'error');
+                        if (state is UserCreated) {
+                          UserAlerts.show(context,
+                              'User has been created successfully', 'success');
+                        }
 
-                        // ScaffoldMessenger.of(context).showSnackBar(
-                        //   UserAlerts()
-                        // );
+                        if (state is AuthenticationError) {
+                          UserAlerts.show(context,
+                              'There has been an error somewhere', 'error');
+                        }
                       },
                       child: state is CreatingUser
                           ? const SizedBox(
-                              height: 10.0,
-                              width: 10.0,
+                              height: 15.0,
+                              width: 15.0,
                               child: Center(
                                 child: CircularProgressIndicator(
-                                    color: Colors.white),
+                                  color: Colors.white,
+                                ),
                               ),
                             )
                           : const Text(
                               'Register',
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 25),
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 25,
+                              ),
                             ),
                     ),
                   );
@@ -131,7 +131,7 @@ class RegisterScreen extends StatelessWidget {
                 height: 100,
               ),
               TextButton(
-                onPressed: () => navigateToPage(),
+                onPressed: () => navigateToLoginScreen(),
                 child: const Text(
                   'Already have an account? Login',
                   style: TextStyle(color: Colors.blueGrey, fontSize: 15),
