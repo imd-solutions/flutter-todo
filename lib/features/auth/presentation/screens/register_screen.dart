@@ -1,16 +1,26 @@
+import 'package:firstapp/features/auth/presentation/widgets/user_alerts.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import './../../../../features/auth/presentation/cubit/authentication_cubit.dart';
-import './../../../../features/auth/presentation/views/login_screen.dart';
-import './../../../../shared/services/injection_container.dart';
+import './../../../../features/auth/presentation/widgets/input_text.dart';
 import './../../../../shared/widgets/logo.dart';
+import './../cubit/authentication_cubit.dart';
+import 'login_screen.dart';
 
 class RegisterScreen extends StatelessWidget {
   const RegisterScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    void navigateToPage() {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const LoginScreen(),
+        ),
+      );
+    }
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -23,60 +33,35 @@ class RegisterScreen extends StatelessWidget {
             children: <Widget>[
               const Logo(),
               Padding(
-                //padding: const EdgeInsets.only(left:15.0,right: 15.0,top:0,bottom: 0),
-                padding: const EdgeInsets.symmetric(horizontal: 15),
-                child: TextFormField(
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 15.0, vertical: 10.0),
+                child: InputText(
                   controller:
                       context.read<AuthenticationCubit>().nameController,
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please complete the name field';
-                    }
-                    return null;
-                  },
-                  decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: 'Name',
-                      hintText: 'Enter your full name'),
+                  labelText: 'Name',
+                  hintText: 'Please enter your full name',
                 ),
               ),
               Padding(
-                //padding: const EdgeInsets.only(left:15.0,right: 15.0,top:0,bottom: 0),
-                padding: const EdgeInsets.only(
-                    left: 15.0, right: 15.0, top: 15, bottom: 0),
-                child: TextFormField(
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 15.0, vertical: 10.0),
+                child: InputText(
                   controller:
                       context.read<AuthenticationCubit>().emailController,
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please complete the email field';
-                    }
-                    return null;
-                  },
-                  decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: 'Email',
-                      hintText: 'Enter valid email id as abc@gmail.com'),
+                  email: true,
+                  labelText: 'Email',
+                  hintText: 'Please enter your email address',
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(
-                    left: 15.0, right: 15.0, top: 15, bottom: 0),
-                //padding: EdgeInsets.symmetric(horizontal: 15),
-                child: TextFormField(
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 15.0, vertical: 10.0),
+                child: InputText(
                   controller:
                       context.read<AuthenticationCubit>().passwordController,
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please complete the password field';
-                    }
-                    return null;
-                  },
-                  obscureText: true,
-                  decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: 'Password',
-                      hintText: 'Enter secure password'),
+                  password: true,
+                  labelText: 'Password',
+                  hintText: 'Please enter a password',
                 ),
               ),
               const SizedBox(
@@ -84,28 +69,6 @@ class RegisterScreen extends StatelessWidget {
               ),
               BlocBuilder<AuthenticationCubit, AuthenticationState>(
                 builder: (context, state) {
-                  // if (state is AuthenticationInitial) {
-                  //   print('The initital state is: $state');
-                  //   return Container();
-                  // } else if (state is CreatingUser) {
-                  //   print('The creating user state is: $state');
-                  //   return const Center(
-                  //     child: CircularProgressIndicator(),
-                  //   );
-                  // } else if (state is UserCreated) {
-                  //   print('The user created state is: $state');
-                  //   return const Center(
-                  //     child: Text('DONE!'),
-                  //   );
-                  // } else if (state is AuthenticationError) {
-                  //   print('The authentication state is: $state');
-                  //   return Center(
-                  //     child: Text(state.message),
-                  //   );
-                  // } else {
-                  //   return Container();
-                  // }
-
                   return Container(
                     height: 50,
                     width: 250,
@@ -114,12 +77,6 @@ class RegisterScreen extends StatelessWidget {
                         borderRadius: BorderRadius.circular(20)),
                     child: TextButton(
                       onPressed: () {
-                        context
-                            .read<AuthenticationCubit>()
-                            .formKey
-                            .currentState!
-                            .validate();
-
                         if (context
                             .read<AuthenticationCubit>()
                             .formKey
@@ -128,9 +85,7 @@ class RegisterScreen extends StatelessWidget {
                           // If the form is valid, display a snackbar. In the real world,
                           // you'd often call a server or save the information in a database.
                           // if (state is CreatingUser) {
-                          //   ScaffoldMessenger.of(context).showSnackBar(
-                          //     const SnackBar(content: Text('Processing Data')),
-                          //   );
+
                           // }
 
                           context.read<AuthenticationCubit>().createUser(
@@ -147,8 +102,11 @@ class RegisterScreen extends StatelessWidget {
                                   .passwordController
                                   .text);
                         }
+
+                        UserAlerts.show(context, 'We are family', 'error');
+
                         // ScaffoldMessenger.of(context).showSnackBar(
-                        //   const SnackBar(content: Text('Processing Data')),
+                        //   UserAlerts()
                         // );
                       },
                       child: state is CreatingUser
@@ -173,14 +131,7 @@ class RegisterScreen extends StatelessWidget {
                 height: 100,
               ),
               TextButton(
-                onPressed: () {
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const LoginScreen(),
-                    ),
-                  );
-                },
+                onPressed: () => navigateToPage(),
                 child: const Text(
                   'Already have an account? Login',
                   style: TextStyle(color: Colors.blueGrey, fontSize: 15),

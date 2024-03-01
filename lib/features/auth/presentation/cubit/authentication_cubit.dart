@@ -39,12 +39,8 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
       password: password,
     ));
 
-    print('final result: $result');
-
     result.fold(
       (failure) {
-        print('failure: $failure');
-
         emit(
           AuthenticationError(
             message: failure.message,
