@@ -30,6 +30,9 @@ class RegisterScreen extends StatelessWidget {
     final TextEditingController userPassword =
         context.read<AuthenticationCubit>().passwordController;
 
+    final TextEditingController userConfimrPassword =
+        context.read<AuthenticationCubit>().confirmPasswordController;
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -70,6 +73,18 @@ class RegisterScreen extends StatelessWidget {
                   hintText: 'Please enter a password',
                 ),
               ),
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 15.0, vertical: 10.0),
+                child: InputText(
+                  controller: userConfimrPassword,
+                  password: true,
+                  passwordCheck: true,
+                  confirmPassword: userPassword,
+                  labelText: 'Confirm Password',
+                  hintText: 'Please confirm your password',
+                ),
+              ),
               const SizedBox(
                 height: 20.0,
               ),
@@ -98,12 +113,12 @@ class RegisterScreen extends StatelessWidget {
 
                         if (state is UserCreated) {
                           UserAlerts.show(context,
-                              'User has been created successfully', 'success');
+                              'User has been created successfully.', 'success');
                         }
 
                         if (state is AuthenticationError) {
-                          UserAlerts.show(context,
-                              'There has been an error somewhere', 'error');
+                          UserAlerts.show(
+                              context, 'There has been an error.', 'error');
                         }
                       },
                       child: state is CreatingUser
