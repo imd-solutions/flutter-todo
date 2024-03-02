@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/widgets.dart';
+import 'package:get/get.dart';
 
 import './../../../../features/auth/domain/usecases/user_login.dart';
 import './../../../../shared/utils/typedef.dart';
@@ -12,13 +13,13 @@ part 'authentication_state.dart';
 
 class AuthenticationCubit extends Cubit<AuthenticationState> {
   final CreateUserUseCase _createUser;
-  final UserLoginUseCase _userLoging;
+  final UserLoginUseCase _userLogin;
 
   AuthenticationCubit({
     required CreateUserUseCase createUser,
     required UserLoginUseCase userLogin,
   })  : _createUser = createUser,
-        _userLoging = userLogin,
+        _userLogin = userLogin,
         super(const AuthenticationInitial());
 
   TextEditingController nameController = TextEditingController();
@@ -61,8 +62,7 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
     required String password,
   }) async {
     emit(const LoginUserIn());
-
-    final result = await _userLoging(
+    final result = await _userLogin(
       UserLoginParams(
         email: email,
         password: password,
@@ -70,10 +70,13 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
     );
 
     result.fold(
-      (failure) => emit(
-        AuthenticationError(
-            message: failure.message, statusCode: failure.statusCode),
-      ),
+      (failure) {
+        print(failure);
+        emit(
+          AuthenticationError(
+              message: failure.message, statusCode: failure.statusCode),
+        );
+      },
       (_) => emit(
         const UserLoggedIn(),
       ),
