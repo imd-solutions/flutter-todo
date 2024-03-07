@@ -2,7 +2,6 @@ import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/widgets.dart';
-import 'package:get/get.dart';
 
 import './../../../../features/auth/domain/usecases/user_login.dart';
 import './../../../../shared/utils/typedef.dart';
@@ -25,6 +24,8 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
   TextEditingController nameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  TextEditingController confirmPasswordController = TextEditingController();
+
   final formKey = GlobalKey<FormState>();
 
   ResultFutureVoid createUser({
@@ -71,7 +72,6 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
 
     result.fold(
       (failure) {
-        print(failure);
         emit(
           AuthenticationError(
               message: failure.message, statusCode: failure.statusCode),

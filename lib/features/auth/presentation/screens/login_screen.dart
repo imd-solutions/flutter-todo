@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../cubit/authentication_cubit.dart';
 import '../widgets/input_text.dart';
 import 'register_screen.dart';
-import '../../../../home_screen.dart';
 import '../../../../shared/widgets/logo.dart';
 
 class LoginScreen extends StatelessWidget {
